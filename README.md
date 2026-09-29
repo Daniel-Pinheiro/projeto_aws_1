@@ -142,9 +142,10 @@ Lifecycle do bucket:
 2. Glacier Deep Archive.
 3. Exclusão conforme a política de retenção.
 
-### EBS
 
-Snapshots dos volumes persistentes são gerenciados pelo AWS Data Lifecycle Manager (DLM). Não existe EBS dedicado para armazenar snapshots.
+### Snapshots EBS
+
+O AWS Data Lifecycle Manager (DLM) automatiza a criação, retenção e exclusão de snapshots dos volumes EBS.
 
 ## Critérios de Escala
 
@@ -168,7 +169,7 @@ Principais métricas:
 
 A redução do ASG ocorre quando as métricas de scaling permanecem abaixo dos respectivos alvos e existe capacidade suficiente para atender a carga atual.
 
-Quando múltiplas políticas de target tracking são utilizadas, o Auto Scaling prioriza disponibilidade: faz scale out quando qualquer política solicita aumento e scale in somente quando as políticas habilitadas para scale in permitem a redução. citeturn308584search0
+Quando múltiplas políticas de target tracking são utilizadas, o Auto Scaling prioriza disponibilidade: faz scale out quando qualquer política solicita aumento e scale in somente quando as políticas habilitadas para scale in permitem a redução.
 
 ### Métricas da API
 
@@ -176,8 +177,6 @@ Quando múltiplas políticas de target tracking são utilizadas, o Auto Scaling 
 - CPU e memória como indicadores de utilização da instância.
 - Latência p95/p99 para monitoramento da experiência da API.
 - `EventLoopUtilization` para identificar saturação específica do runtime Node.js.
-
-`ALBRequestCountPerTarget` é uma métrica predefinida para target tracking do EC2 Auto Scaling. citeturn308584search0
 
 ### Métricas do Worker
 
@@ -195,10 +194,6 @@ QueueDepthPerInstance = JobsPending / ASGDesiredCapacity
 
 Essa métrica pode ser publicada no CloudWatch como métrica customizada.
 
-## Snapshots EBS
-
-O AWS Data Lifecycle Manager automatiza a criação, retenção e exclusão de snapshots dos volumes EBS. citeturn308584search1turn308584search9
-
 ## Instâncias
 
 | Componente | Infraestrutura |
@@ -213,3 +208,7 @@ O AWS Data Lifecycle Manager automatiza a criação, retenção e exclusão de s
 | Backups | S3 |
 | Snapshots EBS | AWS DLM |
 | CI/CD | GitHub + GitHub Actions |
+
+### Diagrama Detalhado
+
+![Diagrama detalhado da arquitetura proposta](images/diagrama-aws.svg)
